@@ -15,16 +15,16 @@
     apt_repository:
       repo: 'ppa:wireguard/wireguard'
 
-- name: Install WireGuard and other requirements 
-  apt:
-    name:
-      - linux-headers-{{ kernel_release.stdout }}
-      - linux-headers-generic
-      - wireguard-dkms
-      - wireguard-tools
-      - python2.7        
-    state: present
-    update_cache: true
+  - name: Install WireGuard and other requirements 
+    apt:
+      name:
+        - linux-headers-{{ kernel_release.stdout }}
+        - linux-headers-generic
+        - wireguard-dkms
+        - wireguard-tools
+        - python2.7        
+      state: present
+      update_cache: true
 
   - name: Generate private and public keys for the client and server
     shell: umask 077; wg genkey | tee {{ item.private }} | wg pubkey > {{ item.public }}
